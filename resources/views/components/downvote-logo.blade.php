@@ -1,0 +1,3 @@
+<svg viewBox="156.252 119.437 24.856 35.452" xmlns="http://www.w3.org/2000/svg" width="25px" height="25px">
+  <path style="paint-order: fill; stroke: rgb(255, 255, 255); stroke-width: 2px; fill: rgb(255, 0, 0); transform-origin: 168.728px 136.799px;" d="M 168.396 120.773 L 179.343 138.733 L 172.721 139.643 L 172.037 152.799 L 165.693 152.825 L 164.754 139.642 L 158.114 138.675 L 168.437 120.83" transform="matrix(-1, 0, 0, -1, 0, 0)"/>
+</svg>
