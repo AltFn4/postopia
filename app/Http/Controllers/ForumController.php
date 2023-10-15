@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Post;
-use DB;
-
 
 class ForumController extends Controller
 {
@@ -18,7 +16,7 @@ class ForumController extends Controller
         }
 
         $count = Post::count() / 5;
-        $posts = DB::table('posts')->offset($page * 5)->limit(5)->get();
+        $posts = Post::orderBy('title')->offset($page * 5)->limit(5)->get();
 
         return view('forum.list', ['page'=>$page, 'posts'=>$posts, 'count'=>$count]);
     }
