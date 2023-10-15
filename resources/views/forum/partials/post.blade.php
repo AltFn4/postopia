@@ -16,13 +16,13 @@
     </div>
     <div>
         <button>
-            @include('components.upvote-logo')
+            <x-upvote-logo/>
         </button>
         <button>
-            @include('components.downvote-logo')
+            <x-downvote-logo/>
         </button>
         <button onclick="toggleComment()">
-            @include('components.comment-logo')
+            <x-comment-logo/>
         </button>
     </div>
     <div class="comment-section" style="display: none">

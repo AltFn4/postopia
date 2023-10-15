@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ForumController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,6 +25,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/forum', [ForumController::class, 'list'])->middleware(['auth', 'verified'])->name('forum');
+
+Route::middleware('auth')->group(function () {
+    Route::get('/post', [PostController::class, 'edit'])->name('post.edit');
+    Route::post('/post', [PostController::class, 'create'])->name('post.create');
+    Route::patch('/post', [PostController::class, 'update'])->name('post.update');
+    Route::delete('/post', [PostController::class, 'destroy'])->name('post.destroy');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

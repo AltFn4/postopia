@@ -3,6 +3,10 @@
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Forum') }}
         </h2>
+        <br>
+        <x-primary-button onclick="window.location='/post'">
+            Create Post
+        </x-primary-button>
     </x-slot>
 
     <div class="py-12">
