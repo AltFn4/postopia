@@ -10,6 +10,7 @@ class ForumController extends Controller
 {
     public function list(Request $request) : View
     {
+        $user = $request->user();
         $page = $request->get('page');
         if (!$page) {
             $page = 0;
@@ -18,6 +19,6 @@ class ForumController extends Controller
         $count = Post::count() / 5;
         $posts = Post::orderBy('title')->offset($page * 5)->limit(5)->get();
 
-        return view('forum.list', ['page'=>$page, 'posts'=>$posts, 'count'=>$count]);
+        return view('forum.list', ['page'=>$page, 'posts'=>$posts, 'count'=>$count, 'user'=>$user]);
     }
 }

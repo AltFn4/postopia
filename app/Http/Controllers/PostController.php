@@ -12,7 +12,7 @@ class PostController extends Controller
 {
     public function edit(Request $request) : View
     {
-        return view('post.edit', ['user'=>$request->user]);
+        return view('post.edit', ['user'=>$request->user()]);
     }
 
     public function create(Request $request) : RedirectResponse
