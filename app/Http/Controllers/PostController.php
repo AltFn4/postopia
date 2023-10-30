@@ -10,6 +10,13 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
+    public function show(Request $request)
+    {
+        $id = $request->id;
+        $post = Post::find($id);
+        return view('post.show', ['post'=>$post, 'user'=>$request->user()]);
+    }
+
     public function edit(Request $request) : View
     {
         return view('post.edit', ['user'=>$request->user()]);

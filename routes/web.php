@@ -27,6 +27,7 @@ Route::get('/dashboard', function () {
 Route::get('/forum', [ForumController::class, 'list'])->middleware(['auth', 'verified'])->name('forum');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/post/{id}', [PostController::class, 'show'])->name('post.show');
     Route::get('/post', [PostController::class, 'edit'])->name('post.edit');
     Route::post('/post', [PostController::class, 'create'])->name('post.create');
     Route::patch('/post', [PostController::class, 'update'])->name('post.update');
