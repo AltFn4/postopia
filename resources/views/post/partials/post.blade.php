@@ -26,7 +26,7 @@
                         {{ $post->title }}
                     </a>
                     <br>
-                    <a href="" class="text-sm mt-2 text-gray-800 dark:text-gray-200" style="font:italic">
+                    <a href="/profile/{{ $post->user->id }}" class="text-sm mt-2 text-gray-800 dark:text-gray-200" style="font:italic">
                         <u>
                             {{ $post->user->name }}
                         </u>
