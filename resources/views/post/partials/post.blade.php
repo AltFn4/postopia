@@ -39,15 +39,28 @@
                 </div>
                 
                 <div style="grid-area: footer">
-                    <button>
+                    <script>
+                        function toggleCommentForm(postId, show) {
+                            var commentForm = document.getElementById('comment-form-' + postId);
+                            commentForm.style.display = show ? 'block' : 'none';
+                        }
+                    </script>
+                    <button onclick="toggleCommentForm({{ $post->id }}, true)">
                         <x-comment-logo/>
                     </button>
-                    <x-collapsed id="comment-form">
-                        <form action="" method="post">
-                            <x-textarea placeholder="Type something..."/>
+                    
+                    <x-collapsed id="comment-form-{{ $post->id }}">
+                        <form action="/comment/{{ $post->id }}" method="post">
+                            @csrf
+                            @method('post')
+                            <x-textarea name="content" placeholder="Type something..." required />
+                            <br>
                             <x-primary-button>
                                 Submit
                             </x-primary-button>
+                            <x-danger-button onclick="toggleCommentForm({{ $post->id }}, false)" type="button">
+                                Cancel
+                            </x-danger-button>
                         </form>
                     </x-collapsed>
                 </div>    

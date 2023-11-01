@@ -1,5 +1,5 @@
 <div class="py-6">
-    <a href="" class="text-sm mt-2 text-gray-800 dark:text-gray-200" style="font:italic">
+    <a href="/profile/{{ $comment->user->id }}" class="text-sm mt-2 text-gray-800 dark:text-gray-200" style="font:italic">
         <u>
             {{ $comment->user->name }}
         </u>
