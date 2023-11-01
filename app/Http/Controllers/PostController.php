@@ -32,7 +32,7 @@ class PostController extends Controller
         $post->user_id = $id;
         $post->save();
 
-        return Redirect::to('/')->with('status', 'post-created');
+        return back()->with('status', 'post-created');
     }
 
     public function update(Request $request) : RedirectResponse
@@ -42,6 +42,8 @@ class PostController extends Controller
 
     public function destroy(Request $request) : RedirectResponse
     {
-        return Redirect::to('/');
+        $id = $request->id;
+        $success = Post::find($id)->delete();
+        return back();
     }
 }
