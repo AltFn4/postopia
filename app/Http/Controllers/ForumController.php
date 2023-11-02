@@ -17,7 +17,7 @@ class ForumController extends Controller
         }
 
         $count = Post::count() / 5;
-        $posts = Post::orderBy('title')->offset($page * 5)->limit(5)->get();
+        $posts = Post::orderBy('created_at', 'desc')->offset($page * 5)->limit(5)->get();
 
         return view('forum.list', ['page'=>$page, 'posts'=>$posts, 'count'=>$count, 'user'=>$user]);
     }

@@ -17,7 +17,7 @@
         </div>
     </div>
 
-    <div style='justify-content: center; display: flex'>
+    <div class="justify-center flex">
         @if($page > 0)
             <a href="{{ route('forum', ['page' => $page - 1]) }}" class="p-4 text-gray-900 dark:text-gray-100">
                 prev

@@ -37,7 +37,10 @@ class PostController extends Controller
 
     public function update(Request $request) : RedirectResponse
     {
-        return Redirect::to('/');
+        $id = $request->id;
+        $content = $request->content;
+        Post::where('id', $id)->update(['content'=>$content]);
+        return back();
     }
 
     public function destroy(Request $request) : RedirectResponse
