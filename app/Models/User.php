@@ -52,9 +52,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Comment::class);
     }
-
-    public function isVerified()
-    {
-        return $this->email_verified_at !== NULL;
-    }
 }

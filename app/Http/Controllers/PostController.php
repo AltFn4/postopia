@@ -24,11 +24,18 @@ class PostController extends Controller
 
     public function create(Request $request) : RedirectResponse
     {
+        $request->validate([
+            'title' => 'required',
+            'content' => 'required'
+        ]);
+
         $id = $request->user()->id;
-        $data = Request::createFromGlobals();
+        $title = $reqest->title;
+        $content = $request->content;
+        
         $post = new Post;
-        $post->title = $data->get('title');
-        $post->content = $data->get('content');
+        $post->title = $title;
+        $post->content = $content;
         $post->user_id = $id;
         $post->save();
 

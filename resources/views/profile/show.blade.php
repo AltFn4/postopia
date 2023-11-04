@@ -10,7 +10,7 @@
                 <div class="max-w-xl text-gray-500">
                     <p>Created at {{ $user->created_at }}</p>
                 </div>
-                @if($user->isVerified())
+                @if($user->email_verified_at !== NULL)
                 <div class="text-green-300">
                     <p>verified</p>
                 </div>
