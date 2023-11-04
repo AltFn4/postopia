@@ -63,6 +63,9 @@
                     <p class="text-sm mt-2 text-gray-200 dark:text-gray-200" id="content-{{ $post->id }}">
                         {{ $post->content }}
                     </p>
+                    @foreach($post->images as $image)
+                        <img src="{{ asset('storage/images/' . $image->name)}}" alt="{{ $image->name }}">
+                    @endforeach
                     <form action="/post" method="post" class="hidden" id="edit-form-{{ $post->id }}">
                         @csrf
                         @method('patch')

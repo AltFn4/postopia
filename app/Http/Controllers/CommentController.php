@@ -10,6 +10,9 @@ class CommentController extends Controller
 {
     public function create(Request $request)
     {
+        $request->validate([
+            'content' => 'required',
+        ]);
         $post_id = $request->id;
         $user_id = $request->user()->id;
         $content = $request->content;

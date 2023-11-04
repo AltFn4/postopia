@@ -26,7 +26,7 @@ class PostController extends Controller
     {
         $request->validate([
             'title' => 'required',
-            'content' => 'required'
+            'content' => 'required',
         ]);
 
         $id = $request->user()->id;
@@ -44,6 +44,10 @@ class PostController extends Controller
 
     public function update(Request $request) : RedirectResponse
     {
+        $request->validate([
+            'id' => 'required',
+            'content' => 'required',
+        ]);
         $id = $request->id;
         $content = $request->content;
         Post::where('id', $id)->update(['content'=>$content]);
