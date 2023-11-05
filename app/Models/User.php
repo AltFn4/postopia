@@ -43,13 +43,36 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    /**
+     * The model's default values for attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'role' => 'user',
+    ];
+
+    /**
+     * Posts created by this user.
+     */
     public function posts()
     {
         return $this->hasMany(Post::class);
     }
 
+    /**
+     * Comments created by this user.
+     */
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    /**
+     * Notifications related to this user.
+     */
+    public function notifications()
+    {
+        return $this->hasMany(Notification::class);
     }
 }

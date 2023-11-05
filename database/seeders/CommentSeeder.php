@@ -14,11 +14,5 @@ class CommentSeeder extends Seeder
     public function run(): void
     {
         Comment::factory(50)->create();
-
-        Comment::factory()->create([
-            'content' => 'This is an interesting post!',
-            'user_id' => 1,
-            'post_id' => 1,
-        ]);
     }
 }

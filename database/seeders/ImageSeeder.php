@@ -16,6 +16,7 @@ class ImageSeeder extends Seeder
     {
         // Clear previous images.
         Storage::disk('public')->deleteDirectory('images');
+        
         // Generate images.
         Image::factory(20)->create();
     }

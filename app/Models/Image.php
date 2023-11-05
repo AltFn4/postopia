@@ -9,6 +9,9 @@ class Image extends Model
 {
     use HasFactory;
 
+    /**
+     * Post related to this image.
+     */
     public function post()
     {
         return $this->belongsTo(Post::class);
