@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Models\Post;
+use App\Models\Image;
+use Storage;
 
 class PostController extends Controller
 {
@@ -27,10 +29,11 @@ class PostController extends Controller
         $request->validate([
             'title' => 'required',
             'content' => 'required',
+            'files.*' => 'mimes:png,jpg,jpeg',
         ]);
 
         $id = $request->user()->id;
-        $title = $reqest->title;
+        $title = $request->title;
         $content = $request->content;
         
         $post = new Post;
@@ -38,6 +41,20 @@ class PostController extends Controller
         $post->content = $content;
         $post->user_id = $id;
         $post->save();
+
+        if ($request->hasFile('files')) {
+            $files = $request->file('files');
+
+            foreach ($files as $key => $file) {
+                $path = Storage::disk('public')->putFile('images', $file);
+                $name = str_replace('images/', '', $path);
+
+                $image = new Image;
+                $image->name = $name;
+                $image->post_id = $post->id;
+                $image->save();
+            }
+        }
 
         return back()->with('status', 'post-created');
     }

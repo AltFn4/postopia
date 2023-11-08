@@ -3,7 +3,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('post.create') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('post.create') }}" class="mt-6 space-y-6"  enctype="multipart/form-data">
         @csrf
         @method('post')
 
@@ -16,7 +16,8 @@
         <div>
             <x-input-label for="content" :value="__('Content')" />
             <x-textarea id="content" name="content" type="text" class="mt-1 block w-full" required/>
-            <x-input-error class="mt-2" :messages="$errors->get('content')" />
+            <x-file-upload-logo/>
+            <input type="file" name="files[]" accept="images/*" multiple/>
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
                 <div>
