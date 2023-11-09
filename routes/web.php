@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ForumController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use Illuminate\Support\Facades\Route;
@@ -25,11 +24,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/forum', [ForumController::class, 'list'])->middleware(['auth', 'verified'])->name('forum');
-
 Route::post('/comment/{id}', [CommentController::class, 'create'])->middleware(['auth', 'verified'])->name('comment');
 
 Route::middleware('auth')->group(function () {
+    Route::get('/forum', [PostController::class, 'index'])->name('forum');
     Route::get('/post/{id}', [PostController::class, 'show'])->name('post.show');
     Route::get('/post', [PostController::class, 'edit'])->name('post.edit');
     Route::post('/post', [PostController::class, 'create'])->name('post.create');

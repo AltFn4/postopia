@@ -12,6 +12,20 @@ use Storage;
 
 class PostController extends Controller
 {
+    public function index(Request $request) : View
+    {
+        $user = $request->user();
+        $page = $request->get('page');
+        if (!$page) {
+            $page = 0;
+        }
+
+        $count = Post::count() / 5;
+        $posts = Post::orderBy('created_at', 'desc')->offset($page * 5)->limit(5)->get();
+
+        return view('post.index', ['page'=>$page, 'posts'=>$posts, 'count'=>$count, 'user'=>$user]);
+    }
+
     public function show(Request $request)
     {
         $id = $request->id;
