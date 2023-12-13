@@ -64,7 +64,9 @@
                         {{ $post->content }}
                     </p>
                     @foreach($post->images as $image)
-                        <img src="{{ asset('storage/images/' . $image->name)}}" alt="{{ $image->name }}">
+                        <div class="w-1/2">
+                             <img class="bg-contain" src="{{ asset('storage/images/' . $image->name)}}" alt="{{ $image->name }}">
+                        </div>
                     @endforeach
                     <form action="/post" method="post" class="hidden" id="edit-form-{{ $post->id }}">
                         @csrf

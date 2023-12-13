@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use App\Models\Comment;
+use App\Events\CommentAdded;
 
 class CommentController extends Controller
 {
@@ -23,6 +24,8 @@ class CommentController extends Controller
             $comment->post_id = $post_id;
             $comment->user_id = $user_id;
             $comment->save();
+
+            event(new CommentAdded($comment));
         }
         
         return back()->withInput();

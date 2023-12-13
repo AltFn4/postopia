@@ -14,6 +14,30 @@ export default {
 
     theme: {
         colors: {
+            onyx: {
+                100: '#8e8e8e',
+                200: '#7c7c7c',
+                300: '#696969',
+                400: '#565656',
+                500: '#444444',
+                600: '#373737',
+            },
+            deep_peach: {
+                100: '#ffffff',
+                200: '#fef3eb',
+                300: '#fee9d8',
+                400: '#fee0c7',
+                500: '#fed4b2',
+                600: '#fecea8',
+            },
+            congo_pink: {
+                100: '#ffffff',
+                200: '#ffe5e3',
+                300: '#ffcac6',
+                400: '#ffb0aa',
+                500: '#ff958e',
+                600: '#ff847c',
+            },
             transparent: 'transparent',
             current: 'currentColor',
             black: colors.black,
