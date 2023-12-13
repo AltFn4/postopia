@@ -43,10 +43,6 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/test', function() {
-    return view('test');
-});
-
 Route::middleware('auth')->group(function () {
     Route::get('/notification', [NotificationController::class, 'show'])->name('notification.show');
     Route::delete('/notification', [NotificationController::class, 'destroy'])->name('notification.destroy');

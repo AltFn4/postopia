@@ -1,37 +1,56 @@
 <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
     document.addEventListener("DOMContentLoaded", function(){
       if ({{ Auth::check() }}) {
-        var id = "{{ Auth::user()->id }}";
+        var user_id = "{{ Auth::user()->id }}";
         var notification_list = document.getElementById("notification-list");
-        var notification_logo = document.getElementById("noti-logo");
 
         // Enable pusher logging - don't include this in production
         Pusher.logToConsole = true;
 
-        var pusher = new Pusher('07d6f9672ead3f4d17ff', {
+        var pusher = new Pusher('780bb0f4504ed5098f13', {
           cluster: 'eu'
         });
 
-        var channel = pusher.subscribe('channel-' + id);
+        var channel = pusher.subscribe('channel-' + user_id);
         channel.bind('notify', function(data) {
-          var message = data.message;
-          var url = data.url;
-
-          var a = document.createElement('a');
-          var link = document.createTextNode(message);
-          a.className = "block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out";
-          a.appendChild(link);
-          a.href = url;
-          notification_list.appendChild(a);
-          
-          var hasNotification = notification_list.children.length > 0;
+            var message = data.message;
+            var url = data.url;
+            var nid = data.id;
+            
+            var div = document.createElement('div');
+            var a = document.createElement('x-dropdown-link');
+            var link = document.createTextNode(message);
+            var btn = document.createElement('button');
+            var logo = document.createElement('x-destroy-logo');
+            
+            a.href = url;
+            a.appendChild(link);
+            btn.appendChild(logo);
+            div.appendChild(a);
+            div.appendChild(btn);
+            notification_list.appendChild(div);
+            
+            btn.onclick = destroyNotification(nid);
         });
       }
-      
     });
-    
-  </script>
+
+    function destroyNotification(id) {
+        var notification = $('#notification-' + id);
+        $.ajax({
+            url: '{{ route('notification.destroy', ['id' => '']) }}' + id,
+            type: 'DELETE',
+            data: {'_token': '{{ csrf_token() }}',},
+            success: function(data) {
+                if (data.success) {
+                    notification.remove();
+                }
+            }
+        });
+    }
+</script>
 
 <nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
@@ -63,7 +82,7 @@
                     <x-dropdown align="right" width="48">
                         <x-slot name="trigger">
                             <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
-                                <x-notification-logo id="noti-logo" width="20px" height="20px"/>
+                                <x-notification-logo width="20px" height="20px"/>
                             </button>
                         </x-slot>
                         <x-slot name="content" class="p-5 w-64 h-80 sm:flex sm:items-center">
@@ -73,19 +92,14 @@
                             <hr>
                             <div class="overflow-auto h-80" id="notification-list">
                                 @foreach(Auth::user()->notifications as $notification)
-                                <x-dropdown-link :href="route('post.show', ['id' => $notification->comment->post->id])">
-                                    {{ $notification->comment->user->name }} has left a comment on your post {{ $notification->comment->post->title}} : "{{ $notification->comment->content }}"
-                                    
-                                </x-dropdown-link>
-                                <form method="post" action="{{ route('notification.destroy', ['id' => $notification->id]) }}">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button>
+                                <div id="notification-{{ $notification->id }}">
+                                    <x-dropdown-link :href="route('post.show', ['id' => $notification->comment->post->id])">
+                                        {{ $notification->comment->user->name }} has left a comment on your post {{ $notification->comment->post->title}} : "{{ $notification->comment->content }}"
+                                    </x-dropdown-link>
+                                    <button type="button" onclick="destroyNotification({{ $notification->id }})">
                                         <x-destroy-logo width="10px" height="10px"/>
                                     </button>
-                                </form>
-                                
-                                    
+                                </div>
                                 @endforeach
                             </div>
                             

@@ -30,8 +30,9 @@ class NotificationController extends Controller
 
         if ($notification !== NULL && $notification->user_id == $user_id) {
             $notification->delete();
+            return response()->json(['success' => true]);
         }
-
-        return back();
+        
+        return response()->json(['success' => false]);
     }
 }
