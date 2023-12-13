@@ -20,19 +20,20 @@
             var nid = data.id;
             
             var div = document.createElement('div');
-            var a = document.createElement('x-dropdown-link');
+            var a = document.createElement('a');
             var link = document.createTextNode(message);
             var btn = document.createElement('button');
-            var logo = document.createElement('x-destroy-logo');
             
             a.href = url;
+            a.className = "block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out";
             a.appendChild(link);
-            btn.appendChild(logo);
             div.appendChild(a);
             div.appendChild(btn);
             notification_list.appendChild(div);
             
-            btn.onclick = destroyNotification(nid);
+            btn.type = "button";
+            btn.onclick = function() { destroyNotification(nid) };
+            btn.innerHTML = '<svg width="10px" height="10px" viewBox="151.3 133.019 214.757 224.128" xmlns="http://www.w3.org/2000/svg" {{ $attributes }}><path style="stroke-width: 50px; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255);" d="M 157.234 133.019 L 349.254 357.147" transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, -5.684341886080802e-14, -2.842170943040401e-14)"/><path style="stroke-width: 50px; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255);" d="M 366.057 135.009 L 151.3 352.95" transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, -5.684341886080802e-14, -2.842170943040401e-14)"/></svg>';
         });
       }
     });
@@ -145,8 +146,8 @@
                 <div class="-mr-2 flex items-center sm:hidden">
                     <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out">
                         <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                            <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                            <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            <path :class="{'hidden': active, 'inline-flex': ! active }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                            <path :class="{'hidden': ! active, 'inline-flex': active }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                         </svg>
                     </button>
                 </div>
