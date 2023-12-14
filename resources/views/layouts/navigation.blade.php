@@ -6,11 +6,8 @@
         var user_id = "{{ Auth::user()->id }}";
         var notification_list = document.getElementById("notification-list");
 
-        // Enable pusher logging - don't include this in production
-        Pusher.logToConsole = true;
-
-        var pusher = new Pusher('780bb0f4504ed5098f13', {
-          cluster: 'eu'
+        var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
+          cluster: "{{ env('PUSHER_APP_CLUSTER') }}"
         });
 
         var channel = pusher.subscribe('channel-' + user_id);
@@ -61,7 +58,8 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <x-application-logo class="block h-9 fill-current text-congo_pink-600"/>
+                        <p class="text-deep_peach-600">Postopia</p>
                     </a>
                 </div>
 

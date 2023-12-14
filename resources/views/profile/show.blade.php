@@ -22,14 +22,19 @@
                 <!-- Navigation Bar -->
                 <div class="flex flex-row p-2 sm:p-4 bg-white dark:bg-gray-700 shadow sm:rounded-lg">
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <button @click="active = true">
-                            Posts
+                        <button>
+                            <x-nav-link @click="active = true">
+                                Posts
+                            </x-nav-link>
                         </button>
                     </div>
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <button @click="active = false">
-                            Comments
+                        <button>
+                            <x-nav-link @click="active = false">
+                                Comments
+                            </x-nav-link>    
                         </button>
+                        
                     </div>
                 </div>
 
