@@ -18,6 +18,7 @@
             <x-textarea id="content" name="content" type="text" class="mt-1 block w-full" required/>
             <x-file-upload-logo/>
             <input type="file" name="files[]" accept="images/*" multiple/>
+            <x-input-error :messages="$errors->get('files.0')" class="mt-2" />
 
             @if (Auth::user() instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! Auth::user()->hasVerifiedEmail())
                 <div>

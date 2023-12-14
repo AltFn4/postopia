@@ -14,9 +14,13 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
-    <body class="font-sans antialiased">
+    <body class="font-sans antialiased" x-data="{ delete_id: 0, delete_open: false, deleteClick (id) { 
+        this.delete_open = ! this.delete_open;
+        this.delete_id = id;
+    }}">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-950">
             @include('layouts.navigation')
+            @include('post.partials.delete-post-form')
 
             <!-- Page Heading -->
             @if (isset($header))

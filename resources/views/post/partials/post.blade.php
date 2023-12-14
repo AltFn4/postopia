@@ -1,12 +1,7 @@
 <script>
     function toggleCommentForm(post_id, show) {
-        var commentForm = document.getElementById('comment-form-' + post_id);
+        var commentForm = $("#comment-form-" + post_id);
         commentForm.style.display = show ? 'block' : 'none';
-    }
-
-    function toggleDeleteForm(post_id, show) {
-        var form = document.getElementById('delete-form-' + post_id);
-        form.style.display = show ? 'block' : 'none';
     }
 
     function toggleEditForm(post_id, show) {
@@ -16,12 +11,30 @@
         form.style.display = show ? 'block' : 'none';
         content.style.display = show ? 'none' : 'block';
     }
+
+    function submitComment(post_id) {
+        var content = $("#comment-content-" + post_id).val();
+        $.ajax({
+            url: "{{ route('comment.create') }}",
+            type: "POST",
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'content': content,
+                'post_id': post_id,
+            },
+            success: function(data) {
+                if (data.success) {
+                    console.log('success!');
+                    // Add comment UI
+                }
+            }
+        });
+    }
 </script>
 
 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
     <div class="max-w-full">
         <section>
-            @include('post.partials.delete-post-form')
             <x-grid>
                 <div class="row-start-1 col-start-1 row-span-1 col-span-9">
                     <a href="/post/{{ $post->id }}" class="text-lg font-medium text-gray-900 dark:text-gray-100">
@@ -42,7 +55,7 @@
                     </x-primary-button>
                     @endif
                     @if(Auth::user()->role->canDelete || Auth::user()->id == $post->user->id)
-                    <x-secondary-button onclick="toggleDeleteForm({{ $post->id }}, true)">
+                    <x-secondary-button @click="deleteClick({{ $post->id }})">
                         delete
                     </x-secondary-button>
                     @endif
@@ -73,18 +86,16 @@
                     </button>
                     <label class="text-sm mt-2 text-gray-800 dark:text-gray-200" for="comment-btn">{{ $post->comments->count() }}</label>
                     <x-collapsed id="comment-form-{{ $post->id }}">
-                        <form action="/comment/{{ $post->id }}" method="post">
-                            @csrf
-                            @method('post')
-                            <x-textarea name="content" placeholder="Type something..." required />
+                        <div>
+                            <x-textarea name="content" id="comment-content-{{ $post->id }}" placeholder="Type something..." required />
                             <br>
-                            <x-primary-button>
+                            <x-primary-button type="button" onclick="submitComment({{ $post->id }})">
                                 Submit
                             </x-primary-button>
                             <x-danger-button onclick="toggleCommentForm({{ $post->id }}, false)" type="button">
                                 Cancel
                             </x-danger-button>
-                        </form>
+                        </div>
                     </x-collapsed>
                 </div>
                 

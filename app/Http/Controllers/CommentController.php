@@ -12,9 +12,10 @@ class CommentController extends Controller
     public function create(Request $request)
     {
         $request->validate([
+            'post_id' => 'required',
             'content' => 'required',
         ]);
-        $post_id = $request->id;
+        $post_id = $request->post_id;
         $user_id = $request->user()->id;
         $content = $request->content;
 
@@ -27,7 +28,6 @@ class CommentController extends Controller
 
             event(new CommentAdded($comment));
         }
-        
-        return back()->withInput();
+        return response()->json(['success'=>true]);
     }
 }

@@ -29,7 +29,7 @@
             notification_list.appendChild(div);
             
             btn.type = "button";
-            btn.onclick = function() { destroyNotification(nid) };
+            btn.onclick = function() { destroyNotification(nid); };
             btn.innerHTML = '<svg width="10px" height="10px" viewBox="151.3 133.019 214.757 224.128" xmlns="http://www.w3.org/2000/svg" {{ $attributes }}><path style="stroke-width: 50px; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255);" d="M 157.234 133.019 L 349.254 357.147" transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, -5.684341886080802e-14, -2.842170943040401e-14)"/><path style="stroke-width: 50px; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255);" d="M 366.057 135.009 L 151.3 352.95" transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, -5.684341886080802e-14, -2.842170943040401e-14)"/></svg>';
         });
       }
@@ -50,16 +50,15 @@
     }
 </script>
 
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false, active: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 fill-current text-congo_pink-600"/>
-                        <p class="text-deep_peach-600">Postopia</p>
+                <div class="flex items-center">
+                    <a href="{{ route('dashboard') }}" class="shrink-0 items-center w-8 h-8">
+                        <x-application-logo class="block fill-current text-congo_pink-600"/>
                     </a>
                 </div>
 
@@ -76,6 +75,7 @@
                 </div>
             </div>
 
+            <!-- Notification -->
             <div class="flex">
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
                     <x-dropdown align="right" width="48">

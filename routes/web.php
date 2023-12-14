@@ -25,7 +25,7 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::post('/comment/{id}', [CommentController::class, 'create'])->middleware(['auth', 'verified'])->name('comment');
+Route::post('/comment', [CommentController::class, 'create'])->middleware(['auth', 'verified'])->name('comment.create');
 
 Route::middleware('auth')->group(function () {
     Route::get('/forum', [PostController::class, 'index'])->name('forum');

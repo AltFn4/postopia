@@ -40,7 +40,7 @@ class PostController extends Controller
     public function create(Request $request) : RedirectResponse
     {
         $request->validate([
-            'title' => 'required',
+            'title' => 'required|max:20',
             'content' => 'required',
             'files.*' => 'mimes:png,jpg,jpeg',
         ]);
