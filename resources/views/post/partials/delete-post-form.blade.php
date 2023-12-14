@@ -1,4 +1,9 @@
-<div class="fixed z-1 py-8 inset-x-0 top-0 w-full h-full overflow-auto bg-black bg-opacity-25 text-current" x-show="delete_open">
+<div
+    x-show="delete_open"
+    x-transition:enter="transition-opacity ease-out duration-300"
+    x-transition:enter-start="opacity-0"
+    x-transition:enter-end="opacity-100"
+    class=" fixed z-1 py-8 inset-x-0 top-0 w-full h-full overflow-auto bg-black bg-opacity-25 text-current">
     <div class="m-auto bg-white dark:bg-gray-800 shadow sm:rounded-lg p-10 w-4/5">
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
             Confirm

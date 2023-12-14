@@ -1,34 +1,10 @@
 <script>
-    function toggleCommentForm(post_id, show) {
-        var commentForm = $("#comment-form-" + post_id);
-        commentForm.style.display = show ? 'block' : 'none';
-    }
-
     function toggleEditForm(post_id, show) {
         var content = document.getElementById('content-' + post_id);
         var form = document.getElementById('edit-form-' + post_id);
 
         form.style.display = show ? 'block' : 'none';
         content.style.display = show ? 'none' : 'block';
-    }
-
-    function submitComment(post_id) {
-        var content = $("#comment-content-" + post_id).val();
-        $.ajax({
-            url: "{{ route('comment.create') }}",
-            type: "POST",
-            data: {
-                '_token': '{{ csrf_token() }}',
-                'content': content,
-                'post_id': post_id,
-            },
-            success: function(data) {
-                if (data.success) {
-                    console.log('success!');
-                    // Add comment UI
-                }
-            }
-        });
     }
 </script>
 
@@ -81,22 +57,10 @@
                 </div>
                 
                 <div class="row-start-3 col-start-1 row-span-2 col-span-10">
-                    <button onclick="toggleCommentForm({{ $post->id }}, true)" id="comment-btn">
+                    <button>
                         <x-comment-logo/>
                     </button>
                     <label class="text-sm mt-2 text-gray-800 dark:text-gray-200" for="comment-btn">{{ $post->comments->count() }}</label>
-                    <x-collapsed id="comment-form-{{ $post->id }}">
-                        <div>
-                            <x-textarea name="content" id="comment-content-{{ $post->id }}" placeholder="Type something..." required />
-                            <br>
-                            <x-primary-button type="button" onclick="submitComment({{ $post->id }})">
-                                Submit
-                            </x-primary-button>
-                            <x-danger-button onclick="toggleCommentForm({{ $post->id }}, false)" type="button">
-                                Cancel
-                            </x-danger-button>
-                        </div>
-                    </x-collapsed>
                 </div>
                 
             </x-grid>

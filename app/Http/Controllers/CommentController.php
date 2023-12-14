@@ -19,15 +19,14 @@ class CommentController extends Controller
         $user_id = $request->user()->id;
         $content = $request->content;
 
-        if ($content !== NULL) {
-            $comment = new Comment;
-            $comment->content = $content;
-            $comment->post_id = $post_id;
-            $comment->user_id = $user_id;
-            $comment->save();
+         $comment = new Comment;
+        $comment->content = $content;
+        $comment->post_id = $post_id;
+        $comment->user_id = $user_id;
+        $comment->save();
 
-            event(new CommentAdded($comment));
-        }
-        return response()->json(['success'=>true]);
+        event(new CommentAdded($comment));
+        return view('post.partials.comment', ['comment' => $comment]);
+        
     }
 }
