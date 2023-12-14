@@ -36,27 +36,16 @@
                 </div>
                 
                 <div class="row-start-1 col-start-10 row-span-1 col-span-1 text-end">
-                    @if($user->id == $post->user->id)
+                    @if(Auth::user()->role->canEdit || Auth::user()->id == $post->user->id)
                     <x-primary-button onclick="toggleEditForm({{ $post->id }}, true)">
                             edit
                     </x-primary-button>
+                    @endif
+                    @if(Auth::user()->role->canDelete || Auth::user()->id == $post->user->id)
                     <x-secondary-button onclick="toggleDeleteForm({{ $post->id }}, true)">
                         delete
                     </x-secondary-button>
                     @endif
-                </div>    
-
-                <div class="row-span-1 col-span-1">
-                    <div>
-                        <button>
-                            <x-upvote-logo/>
-                        </button>
-                    </div>
-                    <div>
-                        <button>
-                            <x-downvote-logo/>
-                        </button>
-                    </div> 
                 </div>
 
                 <div class="row-start-2 col-start-2 col-span-9 bg-gray-700 p-5 sm:rounded-lg">

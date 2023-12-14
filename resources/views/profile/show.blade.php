@@ -41,12 +41,12 @@
                 <!-- Content Section -->
                 <div>
                     <div x-show="active" class="flex flex-col gap-5 justify-between">
-                        @foreach(Auth::user()->posts as $post)
+                        @foreach($user->posts as $post)
                         @include('post.partials.post')
                         @endforeach
                     </div>
                     <div x-show="!active" class="flex flex-col gap-5 justify-between">
-                        @foreach(Auth::user()->comments as $comment)
+                        @foreach($user->comments as $comment)
                         @include('post.partials.comment')
                         @endforeach
                     </div>

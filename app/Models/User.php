@@ -44,13 +44,16 @@ class User extends Authenticatable
     ];
 
     /**
-     * The model's default values for attributes.
-     *
-     * @var array
+     * Default attributes of each User.
      */
     protected $attributes = [
-        'role' => 'user',
+        'role_id' => 1
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
 
     /**
      * Posts created by this user.

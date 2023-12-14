@@ -14,28 +14,27 @@ class PostController extends Controller
 {
     public function index(Request $request) : View
     {
-        $user = $request->user();
         $page = $request->get('page');
         if (!$page) {
             $page = 0;
         }
 
         $count = Post::count() / 5;
-        $posts = Post::orderBy('created_at', 'desc')->offset($page * 5)->limit(5)->get();
+        $posts = Post::orderBy('id', 'desc')->offset($page * 5)->limit(5)->get();
 
-        return view('post.index', ['page'=>$page, 'posts'=>$posts, 'count'=>$count, 'user'=>$user]);
+        return view('post.index', ['page'=>$page, 'posts'=>$posts, 'count'=>$count]);
     }
 
     public function show(Request $request)
     {
         $id = $request->id;
         $post = Post::find($id);
-        return view('post.show', ['post'=>$post, 'user'=>$request->user()]);
+        return view('post.show', ['post'=>$post]);
     }
 
     public function edit(Request $request) : View
     {
-        return view('post.edit', ['user'=>$request->user()]);
+        return view('post.edit');
     }
 
     public function create(Request $request) : RedirectResponse
