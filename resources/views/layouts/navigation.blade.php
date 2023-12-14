@@ -1,11 +1,11 @@
-<script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script>
+    // Wait until document is fully loaded.
     document.addEventListener("DOMContentLoaded", function(){
       if ({{ Auth::check() }}) {
         var user_id = "{{ Auth::user()->id }}";
         var notification_list = document.getElementById("notification-list");
 
+        // Connect to Pusher.
         var pusher = new Pusher("{{ env('PUSHER_APP_KEY') }}", {
           cluster: "{{ env('PUSHER_APP_CLUSTER') }}"
         });
@@ -16,21 +16,24 @@
             var url = data.url;
             var nid = data.id;
             
+            // Create notification element.
             var div = document.createElement('div');
             var a = document.createElement('a');
             var link = document.createTextNode(message);
             var btn = document.createElement('button');
             
             a.href = url;
-            a.className = "block w-full px-4 py-2 text-left text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out";
+            a.className = "text-left text-sm leading-5 text-gray-700 dark:text-gray-300";
             a.appendChild(link);
-            div.appendChild(a);
-            div.appendChild(btn);
-            notification_list.appendChild(div);
-            
+
             btn.type = "button";
             btn.onclick = function() { destroyNotification(nid); };
             btn.innerHTML = '<svg width="10px" height="10px" viewBox="151.3 133.019 214.757 224.128" xmlns="http://www.w3.org/2000/svg" {{ $attributes }}><path style="stroke-width: 50px; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255);" d="M 157.234 133.019 L 349.254 357.147" transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, -5.684341886080802e-14, -2.842170943040401e-14)"/><path style="stroke-width: 50px; fill: rgb(255, 255, 255); stroke: rgb(255, 255, 255);" d="M 366.057 135.009 L 151.3 352.95" transform="matrix(0.9999999999999999, 0, 0, 0.9999999999999999, -5.684341886080802e-14, -2.842170943040401e-14)"/></svg>';
+        
+            div.className = "flex flex-row m-2 p-2 bg-gray-500 rounded shadow"
+            div.appendChild(a);
+            div.appendChild(btn);
+            notification_list.prepend(div);
         });
       }
     });
@@ -90,11 +93,11 @@
                             </div>
                             <hr>
                             <div class="overflow-auto h-80" id="notification-list">
-                                @foreach(Auth::user()->notifications as $notification)
-                                <div id="notification-{{ $notification->id }}">
-                                    <x-dropdown-link :href="route('post.show', ['id' => $notification->comment->post->id])">
+                                @foreach(collect(Auth::user()->notifications)->sortByDesc('created_at') as $notification)
+                                <div id="notification-{{ $notification->id }}" class="flex flex-row m-2 p-2 bg-gray-500 rounded shadow">
+                                    <a href="{{ route('post.show', ['id' => $notification->comment->post->id]) }}" class="text-left text-sm leading-5 text-gray-700 dark:text-gray-300">
                                         {{ $notification->comment->user->name }} has left a comment on your post {{ $notification->comment->post->title}} : "{{ $notification->comment->content }}"
-                                    </x-dropdown-link>
+                                    </a>
                                     <button type="button" onclick="destroyNotification({{ $notification->id }})">
                                         <x-destroy-logo width="10px" height="10px"/>
                                     </button>

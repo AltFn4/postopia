@@ -29,8 +29,8 @@ Route::post('/comment', [CommentController::class, 'create'])->middleware(['auth
 
 Route::middleware('auth')->group(function () {
     Route::get('/forum', [PostController::class, 'index'])->name('forum');
-    Route::get('/post/{id}', [PostController::class, 'show'])->name('post.show');
-    Route::get('/post', [PostController::class, 'edit'])->name('post.edit');
+    Route::get('/post', [PostController::class, 'show'])->name('post.show');
+    Route::get('/post/edit', [PostController::class, 'edit'])->name('post.edit');
     Route::post('/post', [PostController::class, 'create'])->name('post.create');
     Route::patch('/post', [PostController::class, 'update'])->name('post.update');
     Route::delete('/post', [PostController::class, 'destroy'])->name('post.destroy');

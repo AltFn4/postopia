@@ -13,7 +13,7 @@
         <section>
             <x-grid>
                 <div class="row-start-1 col-start-1 row-span-1 col-span-9">
-                    <a href="/post/{{ $post->id }}" class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                    <a href="{{ route('post.show', ['id' => $post->id]) }}" class="text-lg font-medium text-gray-900 dark:text-gray-100">
                         {{ $post->title }}
                     </a>
                     <br>

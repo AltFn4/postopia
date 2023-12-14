@@ -14,7 +14,7 @@
                 // Clear the text area.
                 $("#comment-content-" + post_id).val("");
                 // Add the newly created comment.
-                $("#comment-section").append(data);
+                $("#comment-section").prepend(data);
             }
         });
     }
@@ -31,7 +31,7 @@
                 </x-primary-button>
             </div>
             <div id="comment-section" class="flex flex-col justify-between gap-5">
-                @foreach($post->comments as $comment)
+                @foreach(collect($post->comments)->sortByDesc('created_at') as $comment)
                     @include('post.partials.comment')
                 @endforeach
             </div>

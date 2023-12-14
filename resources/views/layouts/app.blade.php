@@ -13,6 +13,8 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     </head>
     <body class="font-sans antialiased" x-data="{ delete_id: 0, delete_open: false, deleteClick (id) { 
         this.delete_open = ! this.delete_open;

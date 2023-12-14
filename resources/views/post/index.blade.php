@@ -4,7 +4,7 @@
             {{ __('Forum') }}
         </h2>
         <br>
-        <x-primary-button onclick="window.location='/post'">
+        <x-primary-button onclick="window.location='/post/edit'">
             Create Post
         </x-primary-button>
     </x-slot>
