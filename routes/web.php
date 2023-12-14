@@ -44,7 +44,6 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/notification', [NotificationController::class, 'show'])->name('notification.show');
     Route::delete('/notification', [NotificationController::class, 'destroy'])->name('notification.destroy');
 });
 

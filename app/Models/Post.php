@@ -9,6 +9,10 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'content',
+    ];
+
     /**
      * User who created this post.
      */

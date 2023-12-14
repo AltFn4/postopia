@@ -41,13 +41,19 @@
     function destroyNotification(id) {
         var notification = $('#notification-' + id);
         $.ajax({
-            url: '{{ route('notification.destroy', ['id' => '']) }}' + id,
-            type: 'DELETE',
-            data: {'_token': '{{ csrf_token() }}',},
+            url: "{{ route('notification.destroy') }}",
+            type: "DELETE",
+            data: {
+                '_token': '{{ csrf_token() }}',
+                'id': id,
+            },
             success: function(data) {
                 if (data.success) {
                     notification.remove();
                 }
+            },
+            error: function(error) {
+                console.log(error);
             }
         });
     }

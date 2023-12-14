@@ -12,13 +12,25 @@ use App\Models\User;
 
 class ProfileController extends Controller
 {
+    /**
+     * Display the user's profile.
+     */
     public function show(Request $request): View
     {
+        $request->validate([
+            'id' => 'required|numeric'
+        ]);
+
         $id = $request->id;
         $user = User::find($id);
-        return view('profile.show', [
-            'user' => $user,
-        ]);
+
+        if ($user !== NULL) {
+            return view('profile.show', [
+                'user' => $user,
+            ]);
+        }
+        
+        return back();
     }
     /**
      * Display the user's profile form.
