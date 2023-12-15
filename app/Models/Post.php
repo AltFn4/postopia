@@ -36,4 +36,12 @@ class Post extends Model
     {
         return $this->hasMany(Image::class);
     }
+
+    /**
+     * Tags associated with this post.
+     */
+    public function tags()
+    {
+        return $this->belongsToMany(Tag::class);
+    }
 }

@@ -13,6 +13,13 @@
         <section>
             <x-grid>
                 <div class="row-start-1 col-start-1 row-span-1 col-span-9">
+                    <div class="flex flex-row gap-2">
+                        @foreach( $post->tags as $tag )
+                        <p style="background-color: {{ $tag->colour }}" class="my-2 px-2 text-sm rounded-lg shadow">
+                            {{ $tag->name }}
+                        </p>
+                        @endforeach
+                    </div>
                     <a href="{{ route('post.show', ['id' => $post->id]) }}" class="text-lg font-medium text-gray-900 dark:text-gray-100">
                         {{ $post->title }}
                     </a>
