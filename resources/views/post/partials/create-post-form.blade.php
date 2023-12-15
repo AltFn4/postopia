@@ -13,6 +13,25 @@
             <x-input-error class="mt-2" :messages="$errors->get('title')" />
         </div>
 
+        <div x-data="{ tag_ids: [], select (id) {
+            if (this.tag_ids.includes(id)) {
+                this.tag_ids.splice(this.tag_ids.indexOf(id), 1);
+            } else {
+                this.tag_ids.push(id);
+            }
+        } }">
+            <x-input-label for="tags" :value="__('Tags')" />
+            <input type="hidden" name="tag_ids" x-model="JSON.stringify(tag_ids)" readonly>
+
+            <div name="tags" class="overflow-x-auto flex flex-row gap-2">
+                @foreach( $tags as $tag )
+                <button type="button" @click="select({{ $tag->id }})" style="background-color: {{ $tag->colour }}" :class="{'opacity-100 border border-white border-2': tag_ids.includes({{ $tag->id }}), 'opacity-25': ! tag_ids.includes({{ $tag->id }})}" class="text-sm text-center rounded-lg shadow">
+                    {{ $tag->name }}
+                </button>
+                @endforeach
+            </div>
+        </div>
+
         <div>
             <x-input-label for="content" :value="__('Content')" />
             <x-textarea id="content" name="content" type="text" class="mt-1 block w-full" required/>

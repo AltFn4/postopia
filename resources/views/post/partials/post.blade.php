@@ -9,13 +9,13 @@
 </script>
 
 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-    <div class="max-w-full">
+    <div class="shrink">
         <section>
             <x-grid>
                 <div class="row-start-1 col-start-1 row-span-1 col-span-9">
-                    <div class="flex flex-row gap-2">
+                    <div class="flex flex-wrap gap-2 max-w-full">
                         @foreach( $post->tags as $tag )
-                        <p style="background-color: {{ $tag->colour }}" class="my-2 px-2 text-sm rounded-lg shadow">
+                        <p style="background-color: {{ $tag->colour }}" class="w-fit my-2 px-2 text-sm rounded-lg shadow">
                             {{ $tag->name }}
                         </p>
                         @endforeach

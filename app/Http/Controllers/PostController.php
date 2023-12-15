@@ -8,6 +8,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 use App\Models\Post;
 use App\Models\Image;
+use App\Models\Tag;
 use Storage;
 
 class PostController extends Controller
@@ -56,7 +57,7 @@ class PostController extends Controller
      */
     public function edit(Request $request) : View
     {
-        return view('post.edit');
+        return view('post.edit', ['tags' => Tag::all()]);
     }
 
     /**
@@ -68,6 +69,7 @@ class PostController extends Controller
             'title' => 'required|max:20',
             'content' => 'required',
             'files.*' => 'mimes:png,jpg,jpeg',
+            'tag_ids.*' => 'numeric',
         ]);
 
         $id = $request->user()->id;
@@ -91,6 +93,15 @@ class PostController extends Controller
                 $image->name = $name;
                 $image->post_id = $post->id;
                 $image->save();
+            }
+        }
+
+        if ($request->tag_ids !== NULL && count(json_decode($request->tag_ids)) > 0) {
+            foreach(json_decode($request->tag_ids) as $tag_id) {
+                $tag = Tag::find($tag_id);
+                if ($tag !== NULL) {
+                    $post->tags()->attach($tag_id);
+                }
             }
         }
 
