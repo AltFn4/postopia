@@ -18,10 +18,14 @@ class ProfileController extends Controller
     public function show(Request $request): View
     {
         $request->validate([
-            'id' => 'required|numeric'
+            'id' => 'numeric'
         ]);
 
         $id = $request->id;
+        if ($id == NULL) {
+            $id = $request->user()->id;
+        }
+
         $user = User::find($id);
 
         if ($user !== NULL) {
