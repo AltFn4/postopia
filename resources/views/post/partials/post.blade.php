@@ -56,11 +56,9 @@
                     </form>
                 </div>
                 
-                <div class="row-start-3 col-start-1 row-span-2 col-span-10">
-                    <button>
-                        <x-comment-logo/>
-                    </button>
-                    <label class="text-sm mt-2 text-gray-800 dark:text-gray-200" for="comment-btn">{{ $post->comments->count() }}</label>
+                <div class="row-start-3 col-start-1 row-span-2 col-span-10 flex flex-row">
+                    <x-comment-logo name="comment-btn"/>
+                    <label id="comment-no-label" class="text-sm mt-2 text-gray-800 dark:text-gray-200" for="comment-btn">{{ $post->comments->count() }}</label>
                 </div>
                 
             </x-grid>

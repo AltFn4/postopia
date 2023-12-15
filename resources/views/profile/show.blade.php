@@ -1,18 +1,28 @@
 <x-app-layout>
     <x-slot name="header">
         <div class="flex flex-row justify-between">
-            <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-                {{ $user->name }}
-            </h2>
+            <div class="flex flex-col justify-between gap-2">
+                <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+                    {{ $user->name }}
+                </h2>
+                <div class="flex flex-row justify-between">
+                    @if($user->role->id !== 1)
+                    <div class="bg-white text-gray-900 m-2 p-2 rounded shadow">
+                        <p>{{ $user->role->name }}</p>
+                    </div>
+                    @endif
+                    @if($user->email_verified_at !== NULL)
+                    <div class="bg-green-700 text-white m-2 p-2 rounded shadow">
+                        <p>verified</p>
+                    </div>
+                    @endif
+                </div>
+            </div>
+            
             <div class="text-right">
                 <div class="max-w-xl text-gray-500">
                     <p>Created at {{ $user->created_at }}</p>
                 </div>
-                @if($user->email_verified_at !== NULL)
-                <div class="text-green-300">
-                    <p>verified</p>
-                </div>
-                @endif    
             </div>
         </div>
     </x-slot>
