@@ -13,22 +13,44 @@
             <x-input-error class="mt-2" :messages="$errors->get('title')" />
         </div>
 
-        <div x-data="{ tag_ids: [], select (id) {
+        <div x-data="{ tag_create: false, tag_ids: [], select (id) {
             if (this.tag_ids.includes(id)) {
                 this.tag_ids.splice(this.tag_ids.indexOf(id), 1);
             } else {
                 this.tag_ids.push(id);
             }
+        }, create () {
+            this.tag_create = false;
+            var newTag = $('#new-tag');
+            var name = newTag.val();
+            var tags = $('#tags');
+            newTag.val('');
+            if (name) {
+                $.ajax({
+                    url: '{{ route('tag.create') }}',
+                    type: 'POST',
+                    data: {
+                        '_token': '{{ csrf_token() }}',
+                        'name': name,
+                    },
+                    success: function (data) {
+                        tags.prepend(data);
+                    }
+                });
+            }
         } }">
             <x-input-label for="tags" :value="__('Tags')" />
             <input type="hidden" name="tag_ids" x-model="JSON.stringify(tag_ids)" readonly>
 
-            <div name="tags" class="overflow-x-auto flex flex-row gap-2">
+            <div name="tags" id="tags" class="flex flex-wrap gap-2 max-w-full">
                 @foreach( $tags as $tag )
-                <button type="button" @click="select({{ $tag->id }})" style="background-color: {{ $tag->colour }}" :class="{'opacity-100 border border-white border-2': tag_ids.includes({{ $tag->id }}), 'opacity-25': ! tag_ids.includes({{ $tag->id }})}" class="text-sm text-center rounded-lg shadow">
-                    {{ $tag->name }}
-                </button>
+                @include('post.partials.tag-button')
                 @endforeach
+                <button type="button" @click="tag_create = true" @click.outside="create()" @close.stop="create()">
+                    <p x-show="!tag_create">+</p>
+                    <textarea x-show="tag_create" name="tag" id="new-tag" rows="1" class="resize-none text-sm text-center rounded-lg shadow"></textarea>
+                </button>
+                
             </div>
         </div>
 

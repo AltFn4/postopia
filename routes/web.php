@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,6 +46,10 @@ Route::middleware('auth')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::delete('/notification', [NotificationController::class, 'destroy'])->name('notification.destroy');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::post('/tag', [TagController::class, 'create'])->name('tag.create');
 });
 
 require __DIR__.'/auth.php';

@@ -64,7 +64,9 @@
                 </div>
                 
                 <div class="row-start-3 col-start-1 row-span-2 col-span-10 flex flex-row">
-                    <x-comment-logo name="comment-btn"/>
+                    <a href="{{ route('post.show', ['id' => $post->id]) }}" name="comment-btn">
+                        <x-comment-logo/>
+                    </a>
                     <label id="comment-no-label" class="text-sm mt-2 text-gray-800 dark:text-gray-200" for="comment-btn">{{ $post->comments->count() }}</label>
                 </div>
                 
