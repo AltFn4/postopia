@@ -29,7 +29,7 @@ class CommentAdded implements ShouldBroadcast
         $content = $comment->content;
 
         $this->message = "$username has left a comment on your post $post_title : \"$content\"";
-        $this->url = "/post/$post_id";
+        $this->url = route('post.show', ['id' => $post_id]);
         $this->id = $post_owner_id;
 
         $notification = new Notification;
